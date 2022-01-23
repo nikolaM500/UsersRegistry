@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>USERS</title>
+	<meta charset="UTF-8">
+	<script>
+		var baseUrl = "http://localhost:9000/users";
+		function allUsers() {
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.open("GET",baseUrl,true);
+			xmlhttp.onreadystatechange = function() {
+          if(xmlhttp.readyState ===4 && xmlhttp.status ===200){
+            var persons = JSON.parse(xmlhttp.responseText);
+            var tbltop = `<table>
+			    <tr><th>Id</th><th>First Name</th><th>Last Name</th><th>Occupation</th></tr>`;
+            //main table content we fill from data from the rest call
+            var main ="";
+            for (i = 0; i < persons.length; i++){
+              main += "<tr><td>"+persons[i].id+"</td><td>"+persons[i].name+"</td><td>"+persons[i].lastname+"</td><td>"+persons[i].occupation+"</td></tr>";
+            }
+            var tblbottom = "</table>";
+            var tbl = tbltop + main + tblbottom;
+            document.getElementById("personinfo").innerHTML = tbl;
+          }
+        };
+        xmlhttp.send();
+      }
+      window.onload = function(){
+        allUsers();
+		}
+	</script>
+
+</head>
+<body>
+	<h3>ALL USERS</h3>
+	<div id="personinfo"></div>
+	
+	<p>	You can create new user here </p>
+	<b>	</b>
+	<form id="user-form" >	
+		<label for="name">Enter Users First Name</label>
+		<input type="text" name="name" value="" id="nameinput"> 
+		<label for="lastName">Enter Users Lastst Name</label>
+		<input type="text" name="lastName" value="" id="lastname"> 
+		<label for="occupation">Enter Users Occupation</label>
+		<input type="text" name="occupation" value="" id="occupation"> 
+		<input type="submit" name="submit" onclick="createUser()">
+	</form>
+	<p>	</p>
+	<p>	You can update existing user here</p>
+	<form>
+		<label for="idnum">Enter Users ID </label>
+		<input type="text" name="idnum" value="" id="inputIdUpdate"> 
+		<label for="name">Enter Users First Name</label>
+		<input type="text" name="nameU" value="" id="nameinputU"> 
+		<label for="lastName">Enter Users Lastst Name</label>
+		<input type="text" name="lastName" value="" id="lastnameU"> 
+		<label for="occupation">Enter Users Occupation</label>
+		<input type="text" name="occupation" value="" id="occupationU"> 
+		<input type="submit" name="submit" onclick="updateUser()">
+	</form>
+	<p></p>
+	<b>	Deleting User </b>
+	<div id = "deleteUser">
+	<input type="text" placeholder="User ID " id="inputId">
+    <button type="button" onclick="getInputValue(),deleteUser()">Delete User</button>
+	</div>
+	<script>
+		function createUser(){
+				var xhr = new XMLHttpRequest();
+		xhr.open("POST", "http://localhost:9000/create");
+		xhr.setRequestHeader("Accept", "application/json");
+		xhr.setRequestHeader("Content-Type", "application/json");
+
+		xhr.onreadystatechange = function () {
+  				 if (xhr.readyState === 4) {
+     				 console.log(xhr.status);
+     				 console.log(xhr.responseText);
+  				 }};
+  		var name=document.getElementById("nameinput").value;
+  		var lastName=document.getElementById("lastname").value;
+  		var Occupation=document.getElementById("occupation").value;
+		var data = `{
+ "name":"`+name+`",
+           "lastname":"`+lastName+`",
+           "occupation":"`+Occupation+`"
+}`;
+
+			xhr.send(data);
+		}
+
+		function updateUser(){
+				var xhr = new XMLHttpRequest();
+		let inputValU = document.getElementById("inputIdUpdate").value;
+		var updateUrl="http://localhost:9000/update/"+inputValU;
+		xhr.open("PUT", updateUrl);
+		xhr.setRequestHeader("Accept", "application/json");
+		xhr.setRequestHeader("Content-Type", "application/json");
+
+		xhr.onreadystatechange = function () {
+  				 if (xhr.readyState === 4) {
+     				 console.log(xhr.status);
+     				 console.log(xhr.responseText);
+  				 }};
+  		var name=document.getElementById("nameinputU").value;
+  		var lastName=document.getElementById("lastnameU").value;
+  		var Occupation=document.getElementById("occupationU").value;
+		var data = `{
+ "name":"`+name+`",
+           "lastname":"`+lastName+`",
+           "occupation":"`+Occupation+`"
+}`;
+
+			xhr.send(data);
+		}
+	 function deleteUser(){
+		var xhr2 = new XMLHttpRequest();
+		let inputVal = document.getElementById("inputId").value;
+		var deleteUrl="http://localhost:9000/delete/"+inputVal;
+		xhr2.open("DELETE", deleteUrl);
+		xhr2.setRequestHeader("Accept", "*/*");
+
+		xhr2.onreadystatechange = function () {
+  				 if (xhr2.readyState === 4) {
+     				 console.log(xhr2.status);
+     				 console.log(xhr2.responseText);
+  				 }};
+		xhr2.send();
+		}  
+	</script>
+
+	<script>
+		
+		 function getInputValue() {
+        // Selecting the input element and get its value 
+        let inputVal = document.getElementById("inputId").value;
+        // Displaying the value
+        alert(inputVal);
+      }
+      /*
+      
+		function deleteUser(){
+		var xhr2 = new XMLHttpRequest();
+		let inputVal = document.getElementById("inputId").value;
+		var deleteUrl="http://localhost:9000/delete/"+inputVal;
+		xhr2.open("DELETE", deleteUrl);
+		xhr2.setRequestHeader("Accept", "*//*");
+
+		xhr2.onreadystatechange = function () {
+  				 if (xhr2.readyState === 4) {
+     				 console.log(xhr2.status);
+     				 console.log(xhr2.responseText);
+  				 }};
+		xhr2.send();
+		}  */
+	</script>
+</body>
+</html>
