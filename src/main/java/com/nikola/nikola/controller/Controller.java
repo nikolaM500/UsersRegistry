@@ -56,13 +56,38 @@ public class Controller {
 
     @PutMapping(value = "/update/{id}")
     public String updateUser(@PathVariable long id, @RequestBody User user){
+        User currentUser = userRepo.getById(id);
         User updatedUser = userRepo.getById(id);
-        updatedUser.setName(user.getName());
-        updatedUser.setLastname(user.getLastname());
-        updatedUser.setOccupation(user.getOccupation());
-        updatedUser.setEmail(user.getEmail());
-        updatedUser.setPhone(user.getPhone());
-        updatedUser.setHomeCity(user.getHomeCity());
+        if (user.getName().equals("")){
+            updatedUser.setName(currentUser.getName());
+        } else {
+            updatedUser.setName(user.getName());
+        }
+        if (user.getLastname().equals("")){
+            updatedUser.setLastname(currentUser.getLastname());
+        } else {
+            updatedUser.setLastname(user.getLastname());
+        }
+        if (user.getOccupation().equals("")){
+            updatedUser.setOccupation(currentUser.getOccupation());
+        } else {
+            updatedUser.setOccupation(user.getOccupation());
+        }
+        if (user.getEmail().equals("")){
+            updatedUser.setEmail(currentUser.getEmail());
+        } else {
+            updatedUser.setEmail(user.getEmail());
+        }
+        if (user.getPhone().equals("")){
+            updatedUser.setPhone(currentUser.getPhone());
+        } else {
+            updatedUser.setPhone(user.getPhone());
+        }
+        if (user.getHomeCity().equals("")){
+            updatedUser.setHomeCity(currentUser.getHomeCity());
+        } else {
+            updatedUser.setHomeCity(user.getHomeCity());
+        }
         userRepo.save(updatedUser);
         return "saved...";
     }
@@ -78,7 +103,10 @@ public class Controller {
 
     @GetMapping("/count")
     public String getCount(){
-        return "Total users: "+ userRepo.count();
+       // return "Total users: "+ userRepo.count();
+        return "{\n" +
+                "    \"id\": "+ userRepo.count()+"\n" +
+                "}";
     }
 
 

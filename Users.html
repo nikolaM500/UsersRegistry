@@ -40,6 +40,8 @@
 
 </style>
 	<h2>USER REGISTRY</h2>
+	<p></p>
+	<p id="userCount"></p>
 	<p>	You can create new user here </p>
 	<form id="user-form" class="bordered" >
 		<label for="nameinput">Enter Users First Name</label>
@@ -119,6 +121,7 @@
 			xmlhttp.send();
 		}
 		window.onload = function(){
+			userCount();
 			allUsers();
 		}
 		function createUser(){
@@ -191,7 +194,7 @@
 		xhr2.send();
 	}
 
-		function searchUser(){
+	function searchUser(){
 			var xhr3 = new XMLHttpRequest();
 			let inputVal3 = document.getElementById("inputIdSearch").value;
 			var searchUrl="http://localhost:9000/users/"+inputVal3;
@@ -210,6 +213,25 @@
 					document.getElementById("userinfo").innerHTML = tbl2;
 				}};
 			xhr3.send();
+	}
+
+		function userCount(){
+			var xhr4 = new XMLHttpRequest();
+			var searchUrl="http://localhost:9000/count";
+			xhr4.open("GET", searchUrl,true);
+			xhr4.setRequestHeader("Accept", "*/*");
+			xhr4.onreadystatechange = function () {
+				if(xhr4.readyState ===4 && xhr4.status ===200) {
+					var userCountNum = JSON.parse(xhr4.responseText);
+					var countTable = `<table align="center">
+			    <tr><td>Number Of Registered Users</td></tr>`;
+					var main3 ="";
+					main3 += "<tr><th>"+userCountNum.id+"</th></tr>";
+					var tblbottom2 = "</table>";
+					var usersTotal = countTable + main3 + tblbottom2;
+					document.getElementById("userCount").innerHTML = usersTotal;
+				}};
+			xhr4.send();
 		}
 
 	function getInputValue() {
