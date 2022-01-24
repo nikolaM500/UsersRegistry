@@ -60,6 +60,9 @@ public class Controller {
         updatedUser.setName(user.getName());
         updatedUser.setLastname(user.getLastname());
         updatedUser.setOccupation(user.getOccupation());
+        updatedUser.setEmail(user.getEmail());
+        updatedUser.setPhone(user.getPhone());
+        updatedUser.setHomeCity(user.getHomeCity());
         userRepo.save(updatedUser);
         return "saved...";
     }

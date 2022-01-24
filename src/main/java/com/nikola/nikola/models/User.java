@@ -13,6 +13,12 @@ public class User {
     private String lastname;
     @Column
     private String occupation;
+    @Column
+    private String email;
+    @Column
+    private String phone;
+    @Column
+    private String homeCity;
 
     public Long getId() {
         return id;
@@ -44,5 +50,29 @@ public class User {
 
     public void setOccupation(String occupation) {
         this.occupation = occupation;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getHomeCity() {
+        return homeCity;
+    }
+
+    public void setHomeCity(String homeCity) {
+        this.homeCity = homeCity;
     }
 }

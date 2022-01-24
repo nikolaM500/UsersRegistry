@@ -4,7 +4,7 @@
 	<title>USERS</title>
 	<meta charset="UTF-8">
 	<script>
-		var baseUrl = "http://localhost:9000/users";
+		var baseUrl = "http://localhost:9000/users/";
 		function allUsers() {
 			var xmlhttp = new XMLHttpRequest();
 			xmlhttp.open("GET",baseUrl,true);
@@ -31,10 +31,9 @@
 	</script>
 
 </head>
-<body>
+<body bgcolor="#bdb76b">
 	<h3>ALL USERS</h3>
 	<div id="personinfo"></div>
-	
 	<p>	You can create new user here </p>
 	<b>	</b>
 	<form id="user-form" >	
@@ -56,9 +55,23 @@
 		<label for="lastName">Enter Users Lastst Name</label>
 		<input type="text" name="lastName" value="" id="lastnameU"> 
 		<label for="occupation">Enter Users Occupation</label>
-		<input type="text" name="occupation" value="" id="occupationU"> 
+		<input type="text" name="occupation" value="" id="occupationU">
+		<label for="emailU">Enter Users Email</label>
+		<input type="text" name="email" value="" id="emailU">
+		<label for="phoneU">Enter Users Phone</label>
+		<input type="text" name="phone" value="" id="phoneU">
+		<label for="cityU">Enter Users Home City</label>
+		<input type="text" name="city" value="" id="cityU">
 		<input type="submit" name="submit" onclick="updateUser()">
 	</form>
+	<p></p>
+	<b>	Search User </b>
+	<div id = "searchUser">
+		<input type="text" placeholder="User ID " id="inputIdSearch">
+		<button type="button" onclick="searchUser()">Search User</button>
+	</div>
+	<p></p>
+	<div id="userinfo"></div>
 	<p></p>
 	<b>	Deleting User </b>
 	<div id = "deleteUser">
@@ -126,33 +139,36 @@
      				 console.log(xhr2.responseText);
   				 }};
 		xhr2.send();
-		}  
-	</script>
+	}
 
-	<script>
-		
-		 function getInputValue() {
-        // Selecting the input element and get its value 
-        let inputVal = document.getElementById("inputId").value;
-        // Displaying the value
-        alert(inputVal);
-      }
-      /*
-      
-		function deleteUser(){
-		var xhr2 = new XMLHttpRequest();
-		let inputVal = document.getElementById("inputId").value;
-		var deleteUrl="http://localhost:9000/delete/"+inputVal;
-		xhr2.open("DELETE", deleteUrl);
-		xhr2.setRequestHeader("Accept", "*//*");
+		function searchUser(){
+			var xhr3 = new XMLHttpRequest();
+			let inputVal3 = document.getElementById("inputIdSearch").value;
+			var searchUrl="http://localhost:9000/users/"+inputVal3;
+			xhr3.open("GET", searchUrl,true);
+			xhr3.setRequestHeader("Accept", "*/*");
+			xhr3.onreadystatechange = function () {
+				if(xhr3.readyState ===4 && xhr3.status ===200) {
+					var userInfoR = JSON.parse(xhr3.responseText);
+					var tbltop2 = `<table bgcolor="#b8860b">
+			    <tr><th>Id</th><th>First Name</th><th>Last Name</th><th>Occupation</th><th>Email</th><th>Phone</th><th>Home City</th></tr>`;
+					//main table content we fill from data from the rest call
+					var main2 ="";
+					main2 += "<tr><td>"+userInfoR.id+"</td><td>"+userInfoR.name+"</td><td>"+userInfoR.lastname+"</td><td>"+userInfoR.occupation+"<td><tdstyle=text-align:center>"+userInfoR.email+"</td><td>"+userInfoR.phone+"</td><td style=text-align:center>"+userInfoR.homeCity+"</td></tr>";
+					var tblbottom2 = "</table>";
+					var tbl2 = tbltop2 + main2 + tblbottom2;
+					document.getElementById("userinfo").innerHTML = tbl2;
+				}};
+			xhr3.send();
+		}
 
-		xhr2.onreadystatechange = function () {
-  				 if (xhr2.readyState === 4) {
-     				 console.log(xhr2.status);
-     				 console.log(xhr2.responseText);
-  				 }};
-		xhr2.send();
-		}  */
+	function getInputValue() {
+			// Selecting the input element and get its value
+			let inputVal = document.getElementById("inputId").value;
+			// Displaying the value
+			alert(inputVal);
+	}
+
 	</script>
 </body>
 </html>
