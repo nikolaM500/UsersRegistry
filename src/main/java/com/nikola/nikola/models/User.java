@@ -18,7 +18,7 @@ public class User {
     @Column
     private String phone;
     @Column
-    private String homeCity;
+    private String homecity;
 
     public Long getId() {
         return id;
@@ -69,10 +69,10 @@ public class User {
     }
 
     public String getHomeCity() {
-        return homeCity;
+        return homecity;
     }
 
     public void setHomeCity(String homeCity) {
-        this.homeCity = homeCity;
+        this.homecity = homeCity;
     }
 }
