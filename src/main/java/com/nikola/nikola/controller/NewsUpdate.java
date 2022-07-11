@@ -58,9 +58,9 @@ public class NewsUpdate {
                 articles = articles.substring(0,articles.length()-1);
                 ObjectMapper mapper = new ObjectMapper();
                 List<Map<String, Object>> data = mapper.readValue(articles, new TypeReference<List<Map<String, Object>>>(){});
-                for (Map<String, Object> map: data) {
+                for (int i = 0; i < 5; i++) {
                     News news = new News();
-                    map.forEach((k,v)->{
+                    data.get(i).forEach((k,v)->{
                         if(k.equalsIgnoreCase("author")){
                             news.setAuthor(v.toString());
                         } else if (k.equalsIgnoreCase("title")) {
@@ -114,9 +114,9 @@ public class NewsUpdate {
                 articles = articles.substring(0,articles.length()-1);
                 ObjectMapper mapper = new ObjectMapper();
                 List<Map<String, Object>> data = mapper.readValue(articles, new TypeReference<List<Map<String, Object>>>(){});
-                for (Map<String, Object> map: data) {
+                for (int i = 0; i < 5; i++) {
                     News news = new News();
-                    map.forEach((k,v)->{
+                    data.get(i).forEach((k,v)->{
                         if(k.equalsIgnoreCase("author")){
                             news.setAuthor(v.toString());
                         } else if (k.equalsIgnoreCase("title")) {
@@ -170,9 +170,9 @@ public class NewsUpdate {
                 articles = articles.substring(0,articles.length()-1);
                 ObjectMapper mapper = new ObjectMapper();
                 List<Map<String, Object>> data = mapper.readValue(articles, new TypeReference<List<Map<String, Object>>>(){});
-                for (Map<String, Object> map: data) {
+                for (int i = 0; i < 5; i++) {
                     News news = new News();
-                    map.forEach((k,v)->{
+                    data.get(i).forEach((k,v)->{
                         if(k.equalsIgnoreCase("author")){
                             news.setAuthor(v.toString());
                         } else if (k.equalsIgnoreCase("title")) {
@@ -197,32 +197,5 @@ public class NewsUpdate {
             System.out.println("Error while processing");
         }
         return "Error = news not updated";
-    }
-
-    public static void main(String[] args) {
-
-        Map<String,String> map = new HashMap<>();
-        map.put("a","1");
-        map.put("b","1");
-        map.put("c","1");
-        map.put("d","1");
-        Map<String,String> map1 = new HashMap<>();
-        map1.put("a","1");
-        map1.put("b","1");
-        map1.put("c","1");
-        map1.put("d","1");
-        Map<String,String> map2 = new HashMap<>();
-        map2.put("a","1");
-        map2.put("b","1");
-        map2.put("c","1");
-        map2.put("d","1");
-        List<Map<String,String>> mapList = new ArrayList<>();
-        mapList.add(map);
-        mapList.add(map1);
-        mapList.add(map2);
-        for (int i = 0; i < 2; i++) {
-            System.out.println(mapList.get(i));
-            //  mapList.forEach(m-> m.forEach((k,v)-> System.out.println(k+"="+v)));
-        }
     }
 }
