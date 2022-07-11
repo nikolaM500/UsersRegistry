@@ -8,7 +8,9 @@ import com.nikola.nikola.repo.BusinessNewsRepo;
 import com.nikola.nikola.repo.SportNewsRepo;
 import com.nikola.nikola.repo.TechNewsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -17,7 +19,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@CrossOrigin
+@RestController
 public class NewsUpdate {
     @Autowired
     BusinessNewsRepo businessNewsRepo;
