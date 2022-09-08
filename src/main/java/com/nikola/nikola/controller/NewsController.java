@@ -25,7 +25,11 @@ public class NewsController {
     public List<News> getBusinessNews(){
         return businessNewsRepo.findAll();}
     @GetMapping(value="/news/tech")
-    public List<News> getTechNews(){return techNewsRepo.findAll();}
+    public List<News> getTechNews(){
+        List<News> techNews = techNewsRepo.findAll();
+        techNews.removeIf(news -> !news.getCategory().equalsIgnoreCase("tech"));
+        return techNews;
+    }
 
     @GetMapping(value="/news/sport")
     public List<News> getSportNews(){return sportNewsRepo.findAll();}
