@@ -12,6 +12,8 @@ public class News {
     private Long id;
 
     @Column
+    private String category;
+    @Column
     private String source_name;
     @Column
     private String author;

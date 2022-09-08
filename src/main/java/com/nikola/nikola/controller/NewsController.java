@@ -1,6 +1,5 @@
 package com.nikola.nikola.controller;
 
-import com.nikola.nikola.models.BusinessNews;
 import com.nikola.nikola.models.News;
 import com.nikola.nikola.repo.BusinessNewsRepo;
 import com.nikola.nikola.repo.SportNewsRepo;
@@ -23,8 +22,8 @@ public class NewsController {
     SportNewsRepo sportNewsRepo;
 
     @GetMapping(value="/news/business")
-    public List<BusinessNews> getBusinessNews(){return businessNewsRepo.findAll();}
-
+    public List<News> getBusinessNews(){
+        return businessNewsRepo.findAll();}
     @GetMapping(value="/news/tech")
     public List<News> getTechNews(){return techNewsRepo.findAll();}
 

@@ -3,7 +3,6 @@ package com.nikola.nikola.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nikola.nikola.models.BusinessNews;
 import com.nikola.nikola.models.News;
 import com.nikola.nikola.repo.BusinessNewsRepo;
 import com.nikola.nikola.repo.SportNewsRepo;
@@ -16,8 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 @CrossOrigin
@@ -63,23 +60,25 @@ public class NewsUpdate {
                 ObjectMapper mapper = new ObjectMapper();
                 List<Map<String, Object>> data = mapper.readValue(articles, new TypeReference<List<Map<String, Object>>>(){});
                 for (int i = 0; i < 5; i++) {
-                    BusinessNews businessNews = new BusinessNews();
+                    News news = new News();
                     data.get(i).forEach((k,v)->{
                         if(k.equalsIgnoreCase("author")){
-                            businessNews.setAuthor(v.toString());
+                            news.setAuthor(v.toString());
                         } else if (k.equalsIgnoreCase("title")) {
-                            businessNews.setTitle(v.toString());
+                            news.setTitle(v.toString());
                         } else if (k.equalsIgnoreCase("url")) {
-                            businessNews.setUrl(v.toString());
+                            news.setUrl(v.toString());
                         } else if (k.equalsIgnoreCase("urlToImage")) {
-                            businessNews.setUrl_img(v.toString());
+                            news.setUrl_img(v.toString());
                         }else if (k.equalsIgnoreCase("publishedAt")) {
-                            businessNews.setTime_published(v.toString());
+                            news.setTime_published(v.toString());
                         }else if (k.equalsIgnoreCase("content")) {
-                            businessNews.setContent(v.toString());
+                            news.setContent(v.toString());
                         }
+
                     });
-                    businessNewsRepo.save(businessNews);
+                    news.setCategory("business");
+                    businessNewsRepo.save(news);
                 }
                 return "success";
             } else {
@@ -135,6 +134,7 @@ public class NewsUpdate {
                             news.setContent(v.toString());
                         }
                     });
+                    news.setCategory("tech");
                     techNewsRepo.save(news);
                 }
                 return "success";
@@ -191,6 +191,7 @@ public class NewsUpdate {
                             news.setContent(v.toString());
                         }
                     });
+                    news.setCategory("sport");
                     sportNewsRepo.save(news);
                 }
                 return "success";
