@@ -3,6 +3,7 @@ package com.nikola.nikola.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nikola.nikola.models.BusinessNews;
 import com.nikola.nikola.models.News;
 import com.nikola.nikola.repo.BusinessNewsRepo;
 import com.nikola.nikola.repo.SportNewsRepo;
@@ -62,23 +63,23 @@ public class NewsUpdate {
                 ObjectMapper mapper = new ObjectMapper();
                 List<Map<String, Object>> data = mapper.readValue(articles, new TypeReference<List<Map<String, Object>>>(){});
                 for (int i = 0; i < 5; i++) {
-                    News news = new News();
+                    BusinessNews businessNews = new BusinessNews();
                     data.get(i).forEach((k,v)->{
                         if(k.equalsIgnoreCase("author")){
-                            news.setAuthor(v.toString());
+                            businessNews.setAuthor(v.toString());
                         } else if (k.equalsIgnoreCase("title")) {
-                            news.setTitle(v.toString());
+                            businessNews.setTitle(v.toString());
                         } else if (k.equalsIgnoreCase("url")) {
-                            news.setUrl(v.toString());
+                            businessNews.setUrl(v.toString());
                         } else if (k.equalsIgnoreCase("urlToImage")) {
-                            news.setUrl_img(v.toString());
+                            businessNews.setUrl_img(v.toString());
                         }else if (k.equalsIgnoreCase("publishedAt")) {
-                            news.setTime_published(v.toString());
+                            businessNews.setTime_published(v.toString());
                         }else if (k.equalsIgnoreCase("content")) {
-                            news.setContent(v.toString());
+                            businessNews.setContent(v.toString());
                         }
                     });
-                    businessNewsRepo.save(news);
+                    businessNewsRepo.save(businessNews);
                 }
                 return "success";
             } else {
