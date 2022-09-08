@@ -27,7 +27,11 @@ public class NewsController {
     @GetMapping(value="/news/tech")
     public List<News> getTechNews(){
         List<News> techNews = techNewsRepo.findAll();
-        techNews.removeIf(news -> !news.getCategory().equalsIgnoreCase("tech"));
+        for (int i = 0; i < techNews.size(); i++) {
+            if (!techNews.get(i).getCategory().equalsIgnoreCase("tech")){
+                techNews.remove(i);
+            }
+        }
         return techNews;
     }
 
