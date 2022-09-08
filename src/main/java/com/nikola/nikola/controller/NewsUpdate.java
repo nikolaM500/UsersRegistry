@@ -63,6 +63,7 @@ public class NewsUpdate {
                     News news = new News();
                     data.get(i).forEach((k,v)->{
                         if(k.equalsIgnoreCase("author")){
+                            news.setCategory("business");
                             news.setAuthor(v.toString());
                         } else if (k.equalsIgnoreCase("title")) {
                             news.setTitle(v.toString());
@@ -77,7 +78,6 @@ public class NewsUpdate {
                         }
 
                     });
-                    news.setCategory("business");
                     businessNewsRepo.save(news);
                 }
                 return "success";
@@ -121,6 +121,7 @@ public class NewsUpdate {
                     News news = new News();
                     data.get(i).forEach((k,v)->{
                         if(k.equalsIgnoreCase("author")){
+                            news.setCategory("tech");
                             news.setAuthor(v.toString());
                         } else if (k.equalsIgnoreCase("title")) {
                             news.setTitle(v.toString());
@@ -134,7 +135,6 @@ public class NewsUpdate {
                             news.setContent(v.toString());
                         }
                     });
-                    news.setCategory("tech");
                     techNewsRepo.save(news);
                 }
                 return "success";
@@ -178,6 +178,7 @@ public class NewsUpdate {
                     News news = new News();
                     data.get(i).forEach((k,v)->{
                         if(k.equalsIgnoreCase("author")){
+                            news.setCategory("sport");
                             news.setAuthor(v.toString());
                         } else if (k.equalsIgnoreCase("title")) {
                             news.setTitle(v.toString());
@@ -191,7 +192,6 @@ public class NewsUpdate {
                             news.setContent(v.toString());
                         }
                     });
-                    news.setCategory("sport");
                     sportNewsRepo.save(news);
                 }
                 return "success";
