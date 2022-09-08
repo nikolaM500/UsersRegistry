@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin
@@ -26,10 +27,11 @@ public class NewsController {
         return businessNewsRepo.findAll();}
     @GetMapping(value="/news/tech")
     public List<News> getTechNews(){
-        List<News> techNews = techNewsRepo.findAll();
-        for (int i = 0; i < techNews.size(); i++) {
-            if (!techNews.get(i).getCategory().equalsIgnoreCase("tech")){
-                techNews.remove(i);
+        List<News> allNews = techNewsRepo.findAll();
+        List<News> techNews = new ArrayList<>();
+        for (int i = 0; i < allNews.size(); i++) {
+            if (allNews.get(i).getCategory().equalsIgnoreCase("tech")){
+                techNews.add(allNews.get(i));
             }
         }
         return techNews;
