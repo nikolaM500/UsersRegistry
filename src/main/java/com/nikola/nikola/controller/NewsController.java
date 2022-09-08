@@ -24,7 +24,15 @@ public class NewsController {
 
     @GetMapping(value="/news/business")
     public List<News> getBusinessNews(){
-        return businessNewsRepo.findAll();}
+        List<News> allNews = businessNewsRepo.findAll();
+        List<News> businessNews = new ArrayList<>();
+        for (int i = 0; i < allNews.size(); i++) {
+            if (allNews.get(i).getCategory().equalsIgnoreCase("business")){
+                businessNews.add(allNews.get(i));
+            }
+        }
+        return businessNews;
+    }
     @GetMapping(value="/news/tech")
     public List<News> getTechNews(){
         List<News> allNews = techNewsRepo.findAll();
@@ -38,7 +46,16 @@ public class NewsController {
     }
 
     @GetMapping(value="/news/sport")
-    public List<News> getSportNews(){return sportNewsRepo.findAll();}
+    public List<News> getSportNews(){
+        List<News> allNews = sportNewsRepo.findAll();
+        List<News> sportNews = new ArrayList<>();
+        for (int i = 0; i < allNews.size(); i++) {
+            if (allNews.get(i).getCategory().equalsIgnoreCase("sport")){
+                sportNews.add(allNews.get(i));
+            }
+        }
+        return sportNews;
+    }
 
 
 
